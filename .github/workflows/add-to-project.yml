@@ -1,0 +1,22 @@
+name: Add Issue to Project
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-issue-to-project:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Add Issue to GitHub Project
+        uses: peter-evans/create-or-update-project-card@v1
+        with:
+          project-id: '2'
+          issue-url: ${{ github.event.issue.html_url }}
+          column-id: '2'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
